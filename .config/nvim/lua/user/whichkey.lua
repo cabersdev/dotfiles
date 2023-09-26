@@ -181,6 +181,19 @@ local mappings = {
     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
   },
+  L = {
+    name = "Load Templates",
+    m = {"<cmd>read /home/caber/.config/nvim/templates/macros.tex<cr>", "macros.tex"},
+    t = {"<cmd>read /home/caber/.config/nvim/templates/template.tex<cr>", "template.tex"},
+    l = {"<cmd>read /home/caber/.config/nvim/templates/letterfonts.tex<cr>","letterfonts.tex"},
+    p = {"<cmd>read /home/caber/.config/nvim/templates/preamble.tex<cr>","preamble.tex"},
+  },
+  x = {
+    name = "TeX",
+    b = { "<cmd>VimtexCompile<cr>", "build" },
+    v = { "<cmd>VimtexView<CR>", "view" },
+ }
+
 }
 
 which_key.setup(setup)
