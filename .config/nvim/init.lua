@@ -19,5 +19,7 @@ require "user.indentline"
 require "user.alpha"
 require "user.whichkey"
 require "user.autocommands"
+require "user.vimtex"
 
-require "nvim-tree".setup()
+require 'nvim-tree'.setup()
+
