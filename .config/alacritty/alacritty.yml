@@ -1,5 +1,82 @@
-import:
-  - /home/caber/.config/alacritty/themes/themes/gnome_terminal.yaml
+# Gnome (Gnome Terminal Default)
+colors:
+  # Default colors
+  primary:
+    background: '0x1e1e1e'
+    foreground: '0xffffff'
+
+  # Normal colors
+  normal:
+    black:      '0x171421'
+    red:        '0xc01c28'
+    green:      '0x26a269'
+    yellow:     '0xa2734c'
+    blue:       '0x12488b'
+    magenta:    '0xa347ba'
+    cyan:       '0x2aa1b3'
+    white:      '0xd0cfcc'
+
+  # Bright colors
+  bright:
+    black:      '0x535c64'
+    red:        '0xf66151'
+    green:      '0x33d17a'
+    yellow:     '0xe9ad0c'
+    blue:       '0x2a7bde'
+    magenta:    '0xc061cb'
+    cyan:       '0x33c7de'
+    white:      '0xffffff'
+
+cursor:
+  style:
+    blinking: Never
+
+font:
+  # The normal (roman) font face to use.
+  normal:
+    family: monospace
+    # Style can be specified to pick a specific face.
+    style: Regular
+
+  # The bold font face
+  bold:
+    family: monospace
+    # Style can be specified to pick a specific face.
+    style: Bold
+
+  # The italic font face
+  italic:
+    family: monospace
+    # Style can be specified to pick a specific face.
+    style: Italic
+
+  size: 12.0
+
+  ligatures: true
+
+  offset:
+    x: 0
+    y: 0
+  glyph_offset:
+    x: 0
+    y: 0
+window:
+  padding:
+    x: 2
+    y: 2
+  # scrolling:
+  #   # Maximum number of lines in the scrollback buffer.
+  #   # Specifying '0' will disable scrolling.
+  history: 10000
+  #   # Number of lines the viewport will move for every line scrolled when
+  #   # scrollback is enabled (history > 0).
+  #   multiplier: 10
+
+# Allow terminal applications to change Alacritty's window title.
+  dynamic_title: true
+
+  # # If `true`, bold text is drawn using the bright color variants.
+  # draw_bold_text_with_bright_colors: true
 
 live_config_reload: true
 
@@ -18,6 +95,5 @@ shell:
     - -l
     - -c
     - "tmux"
+    - "wal -i /home/caber/Wallpapers/blueprocess.jpg"
       # - "tmux attach || tmux"
-
-

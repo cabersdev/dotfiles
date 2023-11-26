@@ -20,6 +20,6 @@ require "user.alpha"
 require "user.whichkey"
 require "user.autocommands"
 require "user.vimtex"
-
+require "user.pywal"
 require 'nvim-tree'.setup()
 
