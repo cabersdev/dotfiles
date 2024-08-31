@@ -1,0 +1,100 @@
+#!/bin/bash
+
+# Extend PATH
+export PATH="${PATH}:${HOME}/.local/bin/"
+
+# Define theme and directories
+dir="$HOME/.config/rofi/launchers/type-1"
+theme='style-1'
+wallpapers=$HOME/Wallpapers
+scripts="$HOME/.config/hypr/scripts"
+
+# Define environments and their configurations
+declare -A environments
+environments=(
+    ["Notes"]="notes-theme blackhole.jpg"
+    ["Computer Vision Projects"]="cv-theme dna.jpg"
+    ["Large Language Model Projects"]="llm-theme map.jpg"
+    ["Data Science Projects"]="data-science-theme quantumpuzzle.jpg"
+    ["Software Development"]="software-dev-theme solarsys.jpg"
+    ["Config"]="config-theme blackhole.jpg"
+)
+
+# Select environment
+selected_env=$(printf "%s\n" "${!environments[@]}" | rofi -dmenu -i -p "  Select Environment: " -theme ${dir}/${theme}.rasi)
+
+# Exit if no environment selected
+if [[ -z $selected_env ]]; then
+    exit 1
+fi
+
+# Get environment-specific configuration
+env_config=(${environments[$selected_env]})
+
+# Extract configurations
+theme=${env_config[0]}
+wallpaper_image=${env_config[1]}
+
+# Apply wallpaper
+wallpaper="$wallpapers/$wallpaper_image"
+if [[ -f $wallpaper ]]; then
+    swww img $wallpaper --transition-type grow --transition-fps 60 --transition-duration 0.5 --transition-bezier 0.65,0,0.35,1 --transition-step 1
+else
+    echo "Wallpaper not found."
+    exit 1
+fi
+
+# Set theme for the environment
+wal -i $wallpaper --theme $theme
+
+# Update other applications based on the new theme
+pywalfox update
+pywal-discord -t default
+wal-telegram --wal
+
+# Launch applications on designated desktops based on the selected environment
+case $selected_env in
+    "Notes")
+        hyprctl dispatch exec "[workspace 1] kitty"
+        hyprctl dispatch exec "[workspace 2] zathura"
+        hyprctl dispatch exec "[workspace 2] firefox-developer-edition"
+        ;;
+    "Computer Vision Projects")
+        hyprctl dispatch exec "[workspace 1] kitty"
+        hyprctl dispatch exec "[workspace 2] pycharm-professional"
+        hyprctl dispatch exec "[workspace 3] datagrip"
+        hyprctl dispatch exec "[workspace 4] firefox-developer-edition"
+        ;;
+    "Large Language Model Projects")
+        hyprctl dispatch exec "[workspace 1] kitty"
+        hyprctl dispatch exec "[workspace 2] pycharm-professional"
+        hyprctl dispatch exec "[workspace 3] datagrip"
+        hyprctl dispatch exec "[workspace 4] firefox-developer-edition"
+        ;;
+    "Data Science Projects")
+        hyprctl dispatch exec "[workspace 1] rstudio"
+        hyprctl dispatch exec "[workspace 2] jupyter-notebook"
+        hyprctl dispatch exec "[workspace 3] datagrip"
+        hyprctl dispatch exec "[workspace 4] firefox-developer-edition"
+        ;;
+    "Software Development")
+        hyprctl dispatch exec "[workspace 1] kitty"
+        hyprctl dispatch exec "[workspace 2] webstorm"
+        hyprctl dispatch exec "[workspace 3] intellij-idea"
+        hyprctl dispatch exec "[workspace 4] datagrip"
+        hyprctl dispatch exec "[workspace 5] firefox-developer-edition"
+        ;;
+    "Config")
+        hyprctl dispatch exec "[workspace 1] kitty"
+        hyprctl dispatch exec "[workspace 2] firefox-developer-edition"
+        ;;
+    *)
+        echo "Invalid environment selected."
+        exit 1
+        ;;
+esac
+
+# Update desktop colors
+. $HOME/.config/mako/update-colors.sh
+
+echo "Environment $selected_env is set up and ready to use."
